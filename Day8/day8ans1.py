@@ -8,7 +8,6 @@ for line in input:
 rows, cols = len(grid[0]), len(grid)
 
 res = 0
-
 counted = set()
 
 # Solve looking down first (going left to right)
@@ -29,7 +28,7 @@ while COL < cols:
     COL += 1
 
 # Solve looking up next (going left to right)
-COL = cols
+COL = 0
 while COL < cols:
     ROW = rows - 1
     curMax = grid[ROW][COL]
