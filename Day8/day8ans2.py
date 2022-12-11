@@ -70,6 +70,7 @@ while ROW < rows:
     ROW += 1
 
 max_sight = 0
+
 for tree in counted:
     treeRow = tree[0]
     treeCol = tree[1]
@@ -78,43 +79,50 @@ for tree in counted:
     COL = tree[1]
     up_sight = 0
     while ROW >= 0:
+        up_sight += 1
         if grid[treeRow][treeCol] > grid[ROW][COL]:
-            up_sight += 1
-        else: break
-        ROW -= 1
+            ROW -= 1
+        else:
+            break
     if up_sight == 0:
         continue
+
     # Look down
     ROW = tree[0] + 1
     COL = tree[1]
     down_sight = 0
     while ROW < rows:
+        down_sight += 1
         if grid[treeRow][treeCol] > grid[ROW][COL]:
-            down_sight += 1
-        else: break
-        ROW += 1
+            ROW += 1
+        else:
+            break
     if down_sight == 0:
         continue
+
     # Look right
     ROW = tree[0]
     COL = tree[1] + 1
     right_sight = 0
     while COL < cols:
+        right_sight += 1
         if grid[treeRow][treeCol] > grid[ROW][COL]:
-            right_sight += 1
-        else: break
-        COL += 1
+            COL += 1
+        else:
+            break
     if right_sight == 0:
         continue
+
     # Look left
     ROW = tree[0]
     COL = tree[1] - 1
     left_sight = 0
     while COL >= 0:
+        left_sight += 1
         if grid[treeRow][treeCol] > grid[ROW][COL]:
-            left_sight += 1
-        else: break
-        COL -= 1
+            COL -= 1
+        else:
+            break
     if left_sight == 0:
         continue
     cur_sight = up_sight * down_sight * left_sight * right_sight
