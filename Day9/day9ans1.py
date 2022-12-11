@@ -1,4 +1,4 @@
-def is_connected(self, head_pos: list[int], tail_pos: list[int]) -> bool:
+def is_connected(head_pos: list[int], tail_pos: list[int]) -> bool:
     '''Check if head is connected to the tail by using absolute difference of positions.
     Returns boolean.'''
     if abs(head_pos[0] - tail_pos[0]) <= 1 and abs(head_pos[1] - tail_pos[1]) <= 1:
@@ -6,12 +6,18 @@ def is_connected(self, head_pos: list[int], tail_pos: list[int]) -> bool:
     else:
         return False
 
-def move_tail(self, head_pos: list[int], tail_pos: list[int]) -> None:
+def move_tail(head_pos: list[int], tail_pos: list[int]) -> None:
     '''Moves tail when called. Shifts tail position one unit towards head.'''
-    tail_pos[0] += 1
+    if head_pos[0] > tail_pos[0]:
+        tail_pos[0] += 1
+    if head_pos[0] < tail_pos[0]:
+        tail_pos[0] -= 1
+    if head_pos[1] > tail_pos[1]:
+        tail_pos[1] += 1
+    if head_pos[1] < tail_pos[1]:
+        tail_pos[1] -= 1
 
-moves = open("day9input.txt", "r").read()
-
+moves = open("day9input.txt", "r")
 # Result of which squares have been visited
 res = set()
 
@@ -21,23 +27,53 @@ head_pos = [0,0]
 tail_pos = [0,0]
 # Add starting position to set
 res.add(tuple(tail_pos))
-
 # Iterate through all moves
 for move in moves:
     # Get direction and count of steps for each move
-    dir, count = move.split(' ')
+    dir, count = move.split()
+    count = int(count)
+    # print(dir)
+    # print(count)
+
     # head moves up
     if dir == 'U':
-        head_pos[1] += 1
-        if not is_connected(head_pos, tail_pos):
-            move_tail(head_pos, tail_pos)
-        continue
+        for _ in range(count):
+            # increment head movement
+            head_pos[1] += 1
+            # move tail if needed
+            if not is_connected(head_pos, tail_pos):
+                move_tail(head_pos, tail_pos)
+                # add tail position to result
+                res.add(tuple(tail_pos))
     # head moves down
-    if dir == 'D':
-        continue
+    elif dir == 'D':
+        for _ in range(count):
+            # increment head movement
+            head_pos[1] -= 1
+            # move tail if needed
+            if not is_connected(head_pos, tail_pos):
+                move_tail(head_pos, tail_pos)
+                # add tail position to result
+                res.add(tuple(tail_pos))
     # head moves left
-    if dir == 'L':
-        continue
+    elif dir == 'L':
+        for _ in range(count):
+            # increment head movement
+            head_pos[0] -= 1
+            # move tail if needed
+            if not is_connected(head_pos, tail_pos):
+                move_tail(head_pos, tail_pos)
+                # add tail position to result
+                res.add(tuple(tail_pos))
     # head moves right
-    if dir == 'R':
-        continue
+    elif dir == 'R':
+        for _ in range(count):
+            # increment head movement
+            head_pos[0] += 1
+            # move tail if needed
+            if not is_connected(head_pos, tail_pos):
+                move_tail(head_pos, tail_pos)
+                # add tail position to result
+                res.add(tuple(tail_pos))
+
+print(len(res))
