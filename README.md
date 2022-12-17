@@ -1,1 +1,2 @@
-# AdventofCode2022
+# Advent of Code 2022
+These are my solutions to Advent of Code 2022. As a current masters student in Computer Science looking to expand my skillset and prepare for upcoming interviews, I am pushing myself to practice by taking on this fun challenge.
